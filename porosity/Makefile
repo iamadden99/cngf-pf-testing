@@ -6,11 +6,11 @@ shear_vel = 0.01
 thickness = 1.0
 
 common_arg = -T \
-	-y 0.20 -Y 0.5 -K 4.0 -n 17049\
+	-y 0.20 -Y 0.8 -K 2.0 -n 10\
 	-I $(output_interval) -e $(end_time) \
 	-L $(thickness) -s $(shear_vel)
 
-PF_SEQ=  0.2104 0.2105  0.2106 0.2107 0.2108 0.2109 0.211 0.2111 0.2112 0.2113
+PF_SEQ= 0.201 0.25 0.3 0.35 0.4 0.45
 
 default: example.pdf
 

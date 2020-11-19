@@ -1,16 +1,16 @@
 bin = ../../cngf-pf/cngf-pf
 
 output_interval = 1.0
-end_time = 1000.0
+end_time = 300.0
 shear_vel = 0.01
 thickness = 1.0
 
 common_arg = -T \
-	-y 0.20 -Y 0.5 -K 4.0 \
+	-y 0.20 -Y 0.5 -K 4.0\
 	-I $(output_interval) -e $(end_time) \
 	-L $(thickness) -s $(shear_vel)
 
-PF_SEQ= 200e2
+PF_SEQ= 2e3 4e3 6e3 8e3 1e4
 
 default: example.pdf
 
