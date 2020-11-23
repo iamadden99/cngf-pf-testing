@@ -1,17 +1,17 @@
 bin = ../../cngf-pf/cngf-pf
 
 output_interval = 1.0
-end_time = 300.0
+end_time = 150.0
 shear_vel = 0.01
 thickness = 1.0
 
 common_arg = -T \
-	-y 0.20 -Y 0.8 -K 2.0 -n 10\
+	-y 0.20 -Y 0.8 -K 2.0 -U 1000 -n 230e3\
 	-I $(output_interval) -e $(end_time) \
 	-L $(thickness) -s $(shear_vel)
 
-PF_SEQ= 0.201 0.25 0.3 0.35 0.4 0.45
-
+PF_SEQ= 0.201
+Z_SEQ = 1 2 3
 default: example.pdf
 
 .SUFFIXES: .log .pdf
@@ -40,10 +40,11 @@ porosity-1.output00000.txt: #$(bin) Makefile
 time-series.txt: porosity-1.output00000.txt
 	/bin/sh -c '\
 	rm -f $@; \
-	for i in $(PF_SEQ); do \
-		for f in porosity-$$i.output*.txt; do \
-			tail -n 1 "$$f" | cut -f 2,5,7,8 >> time-series-$$i.txt; \
-	done; done'
+	for z in $(Z_SEQ); do \
+		for i in $(PF_SEQ); do \
+			for f in porosity-$$i.output*.txt; do \
+				tail -n $$z  "$$f" | head -n 1 |cut -f 2,5,7,8 >> time-series-$$i-$$z.txt; \
+	done; done; done'
 	rm -f porosity-*.output*.txt
 
 overconsolidated.output00000.txt: #$(bin) Makefile
